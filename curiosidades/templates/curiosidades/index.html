@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Blog de Curiosidades</title>
+<meta name="description" content="Um mini blog com curiosidades sobre tecnologia, internet, astronomia e outros temas interessantes.">
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'curiosidades/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <h1>Mini Blog de Curiosidades</h1>
+    <!-- Botão dark mode -->
+    <button id="toggle-dark" aria-label="Ativar modo escuro">
+        🌙 Modo escuro
+    </button>
+</header>
+
+<main>
+
+<!-- Formulário de busca -->
+<section>
+<form method="get" action="">
+    <input 
+        type="text"
+        name="q"
+        placeholder="Buscar título..."
+        value="{{ termo }}"
+        aria-label="Buscar curiosidade pelo título"
+    >
+    <select name="categoria">
+        <option value="">Todas</option>
+        {% for cat, contagem in categorias_com_contagem %}
+        <option value="{{ cat }}" {% if categoria_selecionada == cat %}selected{% endif %}>
+            {{ cat }} ({{ contagem }})
+        </option>
+        {% endfor %}
+    </select>
+
+    <select name="ordenacao">
+        <option value="data_desc" {% if ordenacao == "data_desc" %}selected{% endif %}>Mais recente</option>
+        <option value="data_asc" {% if ordenacao == "data_asc" %}selected{% endif %}>Mais antiga</option>
+        <option value="titulo_asc" {% if ordenacao == "titulo_asc" %}selected{% endif %}>Título A-Z</option>
+        <option value="titulo_desc" {% if ordenacao == "titulo_desc" %}selected{% endif %}>Título Z-A</option>
+    </select>
+
+    <button type="submit">Buscar</button>
+</form>
+</section>
+
+<!-- Categorias -->
+<section>
+<h3>Categorias</h3>
+<ul class="categorias">
+    <li>
+        <a href="{% url 'index' %}" class="{% if not categoria_selecionada %}selected{% endif %}">
+            Todas ({{ total_curiosidades }})
+        </a>
+    </li>
+    {% for cat, contagem in categorias_com_contagem %}
+    <li>
+        <a href="?categoria={{ cat }}{% if termo %}&q={{ termo|urlencode }}{% endif %}" 
+           class="{% if categoria_selecionada == cat %}selected{% endif %}">
+            {{ cat }} ({{ contagem }})
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+</section>
+
+<!-- Contador -->
+<section>
+<p class="contador">
+{% if curiosidades %}
+    {% if categoria_selecionada %}
+        {{ curiosidades.paginator.count }} curiosidade{% if curiosidades.paginator.count > 1 %}s{% endif %}
+        encontrada{% if curiosidades.paginator.count > 1 %}s{% endif %}
+        na categoria "<strong>{{ categoria_selecionada }}</strong>".
+    {% elif termo %}
+        {{ curiosidades.paginator.count }} curiosidade{% if curiosidades.paginator.count > 1 %}s{% endif %}
+        encontrada{% if curiosidades.paginator.count > 1 %}s{% endif %}
+        para "<strong>{{ termo }}</strong>".
+    {% else %}
+        {{ curiosidades.paginator.count }} curiosidade{% if curiosidades.paginator.count > 1 %}s{% endif %}
+        encontrada{% if curiosidades.paginator.count > 1 %}s{% endif %}.
+    {% endif %}
+{% else %}
+    Nenhuma curiosidade encontrada.
+{% endif %}
+</p>
+</section>
+
+<!-- Lista de curiosidades -->
+<section>
+<ul class="lista-curiosidades">
+{% for c in curiosidades %}
+<article class="card-curiosidade {{ c.slug_categoria }}">
+    <a href="{% url 'detalhe' c.id %}">
+        {{ c.titulo_destaque|safe }}
+    </a>
+    <br>
+    <small class="categoria-info {{ c.slug_categoria }}">
+        {{ c.categoria }} • {{ c.data_criacao|date:"d/m/Y H:i" }}
+    </small>
+</article>
+{% empty %}
+<li>Nenhuma curiosidade cadastrada.</li>
+{% endfor %}
+</ul>
+
+<!-- Paginação -->
+{% if curiosidades.has_other_pages %}
+<nav class="paginacao">
+    {% if curiosidades.has_previous %}
+    <a href="?page={{ curiosidades.previous_page_number }}{% if termo %}&q={{ termo|urlencode }}{% endif %}{% if categoria_selecionada %}&categoria={{ categoria_selecionada }}{% endif %}{% if ordenacao %}&ordenacao={{ ordenacao }}{% endif %}">← Anterior</a>
+    {% endif %}
+
+    <span>Página {{ curiosidades.number }} de {{ curiosidades.paginator.num_pages }}</span>
+
+    {% if curiosidades.has_next %}
+    <a href="?page={{ curiosidades.next_page_number }}{% if termo %}&q={{ termo|urlencode }}{% endif %}{% if categoria_selecionada %}&categoria={{ categoria_selecionada }}{% endif %}{% if ordenacao %}&ordenacao={{ ordenacao }}{% endif %}">Próxima →</a>
+    {% endif %}
+</nav>
+{% endif %}
+</section>
+
+</main>
+
+<!-- Script dark mode -->
+<script>
+const botao = document.getElementById("toggle-dark");
+botao.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("modo","dark");
+    } else {
+        localStorage.setItem("modo","light");
+    }
+});
+if(localStorage.getItem("modo") === "dark"){
+    document.body.classList.add("dark-mode");
+}
+</script>
+
+</body>
+</html>

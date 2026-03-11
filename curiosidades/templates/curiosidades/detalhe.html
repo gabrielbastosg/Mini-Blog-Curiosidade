@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título da página -->
+    <title>{{ curiosidade.titulo }} | Blog de Curiosidades</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'curiosidades/style.css' %}">
+</head>
+
+<body>
+
+    <main>
+        <article class="container-detalhe {{ curiosidade.slug_categoria }}">
+
+            <!-- Título -->
+            <h1>
+                {{ curiosidade.titulo_destaque|default:curiosidade.titulo|safe }}
+            </h1>
+
+            <!-- Badge da categoria -->
+            <span class="badge-categoria">
+                {{ curiosidade.categoria }}
+            </span>
+
+            <!-- Conteúdo -->
+            <p class="conteudo-curiosidade">
+                {{ curiosidade.conteudo_destaque|default:curiosidade.conteudo|safe }}
+            </p>
+
+            <!-- Data -->
+            <p class="data-criacao">
+                <em>Criado em: {{ curiosidade.data_criacao|date:"d/m/Y H:i" }}</em>
+            </p>
+
+            <hr>
+
+            <!-- Botão voltar -->
+            <a href="{% url 'index' %}" 
+               class="botao-voltar"
+               aria-label="Voltar para a lista de curiosidades">
+               Voltar para a lista
+            </a>
+
+        </article>
+    </main>
+
+</body>
+</html>
