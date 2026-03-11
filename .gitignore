@@ -1,0 +1,18 @@
+# Banco de dados
+db.sqlite3
+
+# Pastas de ambiente virtual
+env/
+venv/
+.venv/
+
+# Arquivos Python compilados
+*.pyc
+__pycache__/
+
+# Arquivos do sistema
+.DS_Store
+*.log
+
+# Config VS Code
+.vscode/
