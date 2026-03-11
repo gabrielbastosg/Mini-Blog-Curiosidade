@@ -1,54 +1,36 @@
 # Mini Blog de Curiosidades
 
-Um mini blog feito em **Django** que apresenta curiosidades sobre tecnologia, internet, astronomia e outros temas interessantes. Possui filtros por categoria, busca por título, ordenação e modo escuro.
+Um mini blog feito em **Django** para compartilhar curiosidades sobre tecnologia, internet, astronomia e outros temas interessantes. O projeto possui funcionalidades de busca, filtragem por categoria, paginação e modo escuro.
 
 ---
 
 ## Funcionalidades
 
-- Lista de curiosidades paginadas.
-- Busca por título.
-- Filtro por categoria.
-- Ordenação por data ou título.
-- Destaque de termos buscados.
+- Listagem de curiosidades com destaque por categoria.
+- Busca por título de curiosidade.
+- Filtro por categorias e ordenação.
+- Paginação de 6 curiosidades por página.
+- Modo escuro ativável pelo usuário.
 - Página de detalhe de cada curiosidade.
-- Modo claro e escuro (salva preferência do usuário).
-- Responsivo para dispositivos móveis.
+- Destaque de termos pesquisados.
 
 ---
 
 ## Tecnologias
 
-- **Python 3.x**  
-- **Django 4.x**  
-- **HTML5 / CSS3**  
-- **JavaScript** (para modo escuro)
+- Python 3.11+
+- Django 5.2.8
+- HTML, CSS e JS (para front-end)
+- Bibliotecas adicionais:
+  - BeautifulSoup4
+  - Requests
+  - Python-Decouple / Python-Dotenv
+  - Whitenoise (para deploy)
+  - Gunicorn (para deploy em servidor Linux)
 
 ---
 
-## Estrutura do Projeto
-
-
-Mini-Blog-Curiosidade/
-│
-├─ curiosidades/
-│ ├─ templates/curiosidades/
-│ │ ├─ index.html
-│ │ └─ detalhe.html
-│ ├─ static/curiosidades/
-│ │ └─ style.css
-│ ├─ views.py
-│ └─ models.py
-│
-├─ db.sqlite3 (removido do repositório, configurado no .gitignore)
-├─ manage.py
-├─ requirements.txt
-└─ README.md
-
-
----
-
-## Como rodar localmente
+## Instalação
 
 1. Clone o repositório:
 
@@ -56,7 +38,7 @@ Mini-Blog-Curiosidade/
 git clone https://github.com/gabrielbastosg/Mini-Blog-Curiosidade.git
 cd Mini-Blog-Curiosidade
 
-Crie um ambiente virtual (opcional, mas recomendado):
+Crie um ambiente virtual (recomendado):
 
 python -m venv env
 source env/bin/activate  # Linux/Mac
@@ -66,12 +48,28 @@ Instale as dependências:
 
 pip install -r requirements.txt
 
-Execute as migrações do Django:
+Faça as migrações do Django:
 
 python manage.py migrate
 
-Rode o servidor:
+Crie um superusuário (opcional, para o admin):
+
+python manage.py createsuperuser
+
+Execute o servidor local:
 
 python manage.py runserver
 
-Abra no navegador:
+Estrutura do projeto
+Mini-Blog-Curiosidade/
+├── curiosidades/        # App Django principal
+├── db.sqlite3           # Banco de dados SQLite (não enviado para o GitHub)
+├── manage.py
+├── requirements.txt
+├── static/
+├── templates/
+└── README.md
+
+Licença
+
+Projeto livre para aprendizado e uso pessoal.
