@@ -1,52 +1,47 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "curiosidades/base.html" %}
 
-    <!-- Título da página -->
-    <title>{{ curiosidade.titulo }} | Blog de Curiosidades</title>
+{% block title %}
+{{ curiosidade.titulo }} | Blog de Curiosidades
+{% endblock %}
 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'curiosidades/style.css' %}">
-</head>
+{% block content %}
 
-<body>
+<article class="container-detalhe {{ curiosidade.slug_categoria }}">
 
-    <main>
-        <article class="container-detalhe {{ curiosidade.slug_categoria }}">
+    <!-- Título -->
+    <h1>
+        {{ curiosidade.titulo_destaque|default:curiosidade.titulo|safe }}
+    </h1>
 
-            <!-- Título -->
-            <h1>
-                {{ curiosidade.titulo_destaque|default:curiosidade.titulo|safe }}
-            </h1>
+    <!-- Badge da categoria -->
+    <span class="badge-categoria">
+        {{ curiosidade.categoria }}
+    </span>
 
-            <!-- Badge da categoria -->
-            <span class="badge-categoria">
-                {{ curiosidade.categoria }}
-            </span>
+    <!-- Conteúdo -->
+    <p class="conteudo-curiosidade">
+        {{ curiosidade.conteudo_destaque|default:curiosidade.conteudo|safe }}
+    </p>
 
-            <!-- Conteúdo -->
-            <p class="conteudo-curiosidade">
-                {{ curiosidade.conteudo_destaque|default:curiosidade.conteudo|safe }}
-            </p>
+    <!-- Data -->
+    <p class="data-criacao">
+        <em>
+            Criado em:
+            <time datetime="{{ curiosidade.data_criacao }}">
+                {{ curiosidade.data_criacao|date:"d/m/Y H:i" }}
+            </time>
+        </em>
+    </p>
 
-            <!-- Data -->
-            <p class="data-criacao">
-                <em>Criado em: {{ curiosidade.data_criacao|date:"d/m/Y H:i" }}</em>
-            </p>
+    <hr>
 
-            <hr>
+    <!-- Botão voltar -->
+    <a href="{% url 'index' %}" 
+       class="botao-voltar"
+       aria-label="Voltar para a lista de curiosidades">
+       ← Voltar para a lista
+    </a>
 
-            <!-- Botão voltar -->
-            <a href="{% url 'index' %}" 
-               class="botao-voltar"
-               aria-label="Voltar para a lista de curiosidades">
-               Voltar para a lista
-            </a>
+</article>
 
-        </article>
-    </main>
-
-</body>
-</html>
+{% endblock %}
