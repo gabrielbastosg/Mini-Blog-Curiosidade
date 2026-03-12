@@ -1,58 +1,81 @@
-# Mini Blog de Curiosidades
+Mini Blog de Curiosidades
 
-Um mini blog feito em **Django** para compartilhar curiosidades sobre tecnologia, internet, astronomia e outros temas interessantes. O projeto possui funcionalidades de busca, filtragem por categoria, paginação e modo escuro.
+Um mini blog desenvolvido com Django para compartilhar curiosidades sobre tecnologia, internet, astronomia e outros temas interessantes.
 
----
+O projeto inclui funcionalidades como busca, filtragem por categoria, ordenação, paginação e modo escuro, servindo como prática de desenvolvimento web com Django.
 
-## Funcionalidades
+Funcionalidades
 
-- Listagem de curiosidades com destaque por categoria.
-- Busca por título de curiosidade.
-- Filtro por categorias e ordenação.
-- Paginação de 6 curiosidades por página.
-- Modo escuro ativável pelo usuário.
-- Página de detalhe de cada curiosidade.
-- Destaque de termos pesquisados.
+Listagem de curiosidades com destaque por categoria
 
----
+Busca por título de curiosidade
 
-## Tecnologias
+Filtro por categorias
 
-- Python 3.11+
-- Django 5.2.8
-- HTML, CSS e JS (para front-end)
-- Bibliotecas adicionais:
-  - BeautifulSoup4
-  - Requests
-  - Python-Decouple / Python-Dotenv
-  - Whitenoise (para deploy)
-  - Gunicorn (para deploy em servidor Linux)
+Ordenação por data ou título
 
----
+Paginação de 6 curiosidades por página
 
-## Instalação
+Página de detalhe de cada curiosidade
 
-1. Clone o repositório:
+Destaque de termos pesquisados
 
-```bash
+Modo escuro ativável pelo usuário
+
+Tecnologias Utilizadas
+
+Python 3.11+
+
+Django 5.2.8
+
+HTML
+
+CSS
+
+JavaScript
+
+Bibliotecas adicionais
+
+BeautifulSoup4
+
+Requests
+
+Python-Decouple / Python-Dotenv
+
+Whitenoise (para deploy)
+
+Gunicorn (para deploy em servidor Linux)
+
+Instalação
+
+Clone o repositório:
+
 git clone https://github.com/gabrielbastosg/Mini-Blog-Curiosidade.git
 cd Mini-Blog-Curiosidade
 
 Crie um ambiente virtual (recomendado):
 
 python -m venv env
-source env/bin/activate  # Linux/Mac
-env\Scripts\activate     # Windows
+
+Ative o ambiente virtual:
+
+Linux / Mac:
+
+source env/bin/activate
+
+Windows:
+
+env\Scripts\activate
 
 Instale as dependências:
 
 pip install -r requirements.txt
 
-Faça as migrações do Django:
+Execute as migrações do Django:
 
 python manage.py migrate
 
-Crie um superusuário (opcional, para o admin):
+Crie um superusuário (opcional para acessar o admin):
 
 python manage.py createsuperuser
 
@@ -60,15 +83,32 @@ Execute o servidor local:
 
 python manage.py runserver
 
-Estrutura do projeto
+Acesse no navegador:
+
+http://127.0.0.1:8000
+Estrutura do Projeto
 Mini-Blog-Curiosidade/
+│
 ├── curiosidades/        # App Django principal
-├── db.sqlite3           # Banco de dados SQLite (não enviado para o GitHub)
+├── db.sqlite3           # Banco de dados SQLite
 ├── manage.py
 ├── requirements.txt
-├── static/
-├── templates/
+├── static/              # Arquivos CSS, JS e imagens
+├── templates/           # Templates HTML
 └── README.md
+Objetivo do Projeto
+
+Este projeto foi desenvolvido para praticar:
+
+Desenvolvimento web com Django
+
+Organização de templates
+
+Manipulação de dados com busca e filtros
+
+Implementação de paginação
+
+Estruturação de um pequeno projeto web completo
 
 Licença
 
